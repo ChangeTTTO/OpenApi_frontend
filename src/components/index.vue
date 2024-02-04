@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100vh">
     <el-container> <!--包裹着整个浏览器的大边框-->
 
       <el-aside style="width: 250px; min-height: 100vh ;">   <!--侧边栏-->
@@ -8,75 +8,98 @@
           <!--设置文本行高line-height:60px-->
           OpenApi
         </div>
-
         <el-row >
           <!--   ！！！！ 如果 isDivActive 的值为 true，则将会为包含这个:class绑定的HTML元素添加 active 类-->
           <div class="highlight-div" @click="handleDivClick" :class="{ 'active': isDivActive }">
-            <i class="el-icon-odometer" style="font-size: 20px;"></i>  <!--图标 font-size可以设置图标的大小-->
-            <span style="position: relative; left: 10px">接口列表</span></div>
+            <el-icon style="font-size: 20px;"><List /></el-icon>
+            <span style="position: relative; left: 10px"><RouterLink to="/interface">接口列表</RouterLink></span>
+          </div>
+
         </el-row>
         <el-row>
           <!--   ！！！！ 如果 isDivActive 的值为 true，则将会为包含这个:class绑定的HTML元素添加 active 类-->
           <div class="highlight-div" @click="jump" :class="{ 'HuiYuan': isDivHuiYuan }">
-            <i class="el-icon-odometer" style="font-size: 20px;"></i>  <!--图标 font-size可以设置图标的大小-->
+            <el-icon style="font-size: 20px;"><Reading /></el-icon><!--图标 font-size可以设置图标的大小-->
             <span style="position: relative; left: 10px">使用文档</span></div>
         </el-row>
-
 
       </el-aside>
 
       <el-container  > <!--侧边栏右边的大框架-->
 
-        <el-header class="head" style="background-color: #3B5998;padding: 0 20px 0 0;
-                              color: white" height="50px"> <!--右边大框架的头部-->
-          <div style="display: flex; align-items: center; justify-content: flex-end;height: 100%">
-            <el-dropdown placement="bottom">
-              <div style="display: flex; align-items: center;">
-                <img src="@/assets/头像.jpg" style="width: 40px; height: 40px;">
-              </div>
-              <el-dropdown-menu>
-                <el-dropdown-item><i class="el-icon-user" style="font-size: 20px;"></i>
-                  <span style="position: relative; top: -3px">个人中心</span></el-dropdown-item>
-                <el-dropdown-item><i class="el-icon-remove-outline" style="font-size: 20px;"></i>
-                  <span style="position: relative; top: -3px">登出</span></el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-          </div>
-        </el-header>
-        <div  style="overflow-y: auto;height: calc(100vh - 50px);overflow-x: hidden !important;"> <!--无限滚动框-->
-          <el-main style="padding: 0;background-color: #F0F3F8;}" >  <!--右边大框架的主体-->
+        <el-header class="head" style="background-color: #3B5998;height:50px "> <!--右边大框架的头部-->
 
-            <router-view/>
+<!--          <el-dropdown>
+
+           <span class="email">
+           Change125800@Gmail.com
+           </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item><el-icon style="font-size: 18px"><User /></el-icon>个人中心</el-dropdown-item>
+
+                <el-dropdown-item><el-icon style="font-size: 18px"><Remove /></el-icon>登出</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+
+          </el-dropdown>-->
+            <el-button class="email">
+
+             <div>
+               <el-icon style="padding-top: 5px"><UserFilled /></el-icon> Change125800@Gmail.com
+           </div>
+          </el-button>
+
+
+        </el-header>
+
+          <el-main style="padding: 0;background-color: white; " >  <!--右边大框架的主体-->
+            <div style="margin-top: 30px;">
+              <RouterView/>
+            </div>
           </el-main>
-        </div>
+
       </el-container>
     </el-container>
   </div>
+
 </template>
 <script setup lang="ts">
+import {RouterView,RouterLink} from 'vue-router'
+import {ref} from "vue";
+import {ArrowDown} from "@element-plus/icons-vue";
+const isDivActive = ref(false);
+const isDivHuiYuan = ref(false);
 function handleDivClick() {      /*  this代表当前组件的数据属性，而不是来自其他的*/
-  // 处理点击事件的逻辑
-  // 使用this.$router.push切换到另一个页面
-  // 检查当前路由是否与目标路由相同
-  this.isDivHuiYuan = false; /*关闭使用文档的背景颜色*/
-  this.isDivActive = true; // 点击后激活背景颜色
-  if (this.$route.path !== '/Test') {    /*当前访问的文档路径$route*/
-    // 只有在当前路由与目标路由不同的情况下才进行导航
-    this.$router.push('/Test'); // 将用户导航到新界面
-  }
+  isDivHuiYuan.value = false; /*关闭使用文档的背景颜色*/
+  isDivActive.value = true; // 点击后激活背景颜色
 }
 function jump() {
-  this.isDivActive = false; // 关闭仪表盘的背景颜色
-  this.isDivHuiYuan = true; // 点击后激活背景颜色
-  if (this.$route.path !== '/element') {
-    // 只有在当前路由与目标路由不同的情况下才进行导航
-    this.$router.push('/element'); // '/other' 是目标页面的路径
-  }
+  isDivActive.value = false; // 关闭仪表盘的背景颜色
+  isDivHuiYuan.value = true; // 点击后激活背景颜色
 }
 </script>
 
 
 <style scoped>
+a{
+  text-decoration: none;
+  color:#555d65;
+}
+.email{
+  background-color:#3B5998;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  margin: 9px 0 0 970px;
+  border-width: 0px;
+
+}
+.email:hover {
+  background-color: rgba(0, 0, 0, 0.2); /* 0.5 是透明度，可以根据需要进行调整 */
+
+}
+
 /*仪表盘的样式*/
 .highlight-div {
   width: 220px;
@@ -113,10 +136,12 @@ function jump() {
   background-color: #D8E0F0; /* 鼠标悬停时的背景颜色 */
 }
 /*当屏幕铺不满时使用*/
-html, body {
+:root{
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: 100vh;
+  width:100%;
   overflow: hidden;
 }/*隐藏溢出内容*/
+
 </style>

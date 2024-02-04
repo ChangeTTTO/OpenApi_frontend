@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
  import {ref} from "vue";
-import request from "@/Axois";
+import request from "@/Axios";
  let user=ref({
    userAccount:'',
     password:''

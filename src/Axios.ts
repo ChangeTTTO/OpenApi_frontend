@@ -1,5 +1,5 @@
 import axios from 'axios'
-const request = axios.create({
+const request :any = axios.create({
     baseURL: 'http://localhost:8080',
     timeout: 5000
 })
