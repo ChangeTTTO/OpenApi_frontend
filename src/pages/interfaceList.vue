@@ -1,18 +1,23 @@
 <template>
-  <el-row>
-    <el-col :span="24" v-for="(item, index) in response" :key="index">
-      <el-card class="box-card" shadow="hover">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <div>{{ item.description }}</div>
-          <el-button type="primary">
-            <RouterLink :to="`/interfaceInfo/${item.id}`"  style="color: black;">
-            查看
-          </RouterLink></el-button>
-        </div>
-      </el-card>
-    </el-col>
-    <el-pagination background layout="prev, pager, next" :total="1000" />
-  </el-row>
+  <div style="height: 80%">
+    <el-row>
+      <el-col v-for="(item, index) in response" :key="index">
+        <el-card class="box-card" shadow="hover">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>{{ item.description }}</div>
+            <el-button type="primary">
+              <RouterLink :to="`/interfaceInfo/${item.id}`"  style="color: black;">
+                查看
+              </RouterLink></el-button>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <div style="margin-left: 800px">
+      <el-pagination background layout="prev, pager, next" :total="1000" />
+    </div>
+  </div>
+
 
 </template>
 
@@ -27,12 +32,11 @@ onMounted(async () => {
       const result = await request.get('/interfaceInfo/all', {
       params:{
         currentPage: 1,
-          pageSize: 9
+          pageSize: 7
       }
     });
     response.value = result.data;
     // 处理响应数据
-    console.log(result.data[0].description)
   } catch (error) {
     // 处理请求错误
     console.error(error);

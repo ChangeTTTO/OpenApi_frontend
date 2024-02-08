@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100vh">
+  <div>
     <el-container> <!--包裹着整个浏览器的大边框-->
 
       <el-aside style="width: 250px; min-height: 100vh ;">   <!--侧边栏-->
@@ -12,7 +12,7 @@
           <!--   ！！！！ 如果 isDivActive 的值为 true，则将会为包含这个:class绑定的HTML元素添加 active 类-->
           <div class="highlight-div" @click="handleDivClick" :class="{ 'active': isDivActive }">
             <el-icon style="font-size: 20px;"><List /></el-icon>
-            <span style="position: relative; left: 10px"><RouterLink to="/interface">接口列表</RouterLink></span>
+            <span style="position: relative; left: 10px"><RouterLink to="/interfaceList">接口列表</RouterLink></span>
           </div>
 
         </el-row>
@@ -43,19 +43,27 @@
             </template>
 
           </el-dropdown>-->
-            <el-button class="email">
+          <el-dropdown trigger="click">
+            <el-button class="el-button">
+              <el-icon style="margin:0 5px 2px 0 ;font-size: 17px"><UserFilled /></el-icon>
 
-             <div>
-               <el-icon style="padding-top: 5px"><UserFilled /></el-icon> Change125800@Gmail.com
-           </div>
+               {{user}}
+
           </el-button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item><el-icon style="font-size: 18px"><User /></el-icon>个人中心</el-dropdown-item>
 
+                <el-dropdown-item><el-icon style="font-size: 18px"><Remove /></el-icon>登出</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
 
         </el-header>
 
-          <el-main style="padding: 0;background-color: white; " >  <!--右边大框架的主体-->
+          <el-main style="padding: 0;background-color: #F0F3F8; " >  <!--右边大框架的主体-->
             <div style="margin-top: 30px;">
-              <RouterView/>
+              <router-view/>
             </div>
           </el-main>
 
@@ -66,10 +74,16 @@
 </template>
 <script setup lang="ts">
 import {RouterView,RouterLink} from 'vue-router'
+import {onMounted} from 'vue'
 import {ref} from "vue";
-import {ArrowDown} from "@element-plus/icons-vue";
+import {ArrowDown, UserFilled} from "@element-plus/icons-vue";
+
 const isDivActive = ref(false);
 const isDivHuiYuan = ref(false);
+let user = ref('')
+onMounted(()=>{
+ user=localStorage.getItem('loginUser')
+})
 function handleDivClick() {      /*  this代表当前组件的数据属性，而不是来自其他的*/
   isDivHuiYuan.value = false; /*关闭使用文档的背景颜色*/
   isDivActive.value = true; // 点击后激活背景颜色
@@ -78,6 +92,7 @@ function jump() {
   isDivActive.value = false; // 关闭仪表盘的背景颜色
   isDivHuiYuan.value = true; // 点击后激活背景颜色
 }
+
 </script>
 
 
@@ -86,7 +101,7 @@ a{
   text-decoration: none;
   color:#555d65;
 }
-.email{
+.el-button{
   background-color:#3B5998;
   font-weight: bold;
   color: white;
@@ -95,7 +110,7 @@ a{
   border-width: 0px;
 
 }
-.email:hover {
+.el-button:hover {
   background-color: rgba(0, 0, 0, 0.2); /* 0.5 是透明度，可以根据需要进行调整 */
 
 }
@@ -118,7 +133,7 @@ a{
   align-items: center;  /*垂直居中其内部的子元素*/
   border-radius: 0.2rem;
   box-sizing: border-box;
-  transition: background-color 0.3s ease; /* 添加过渡效果，使颜色变化平滑 */
+  transition: 0.3s background-color ease; /* 添加过渡效果，使颜色变化平滑 */
   user-select: none; /* 禁止文本被选中  拒绝高亮效果*/
 }
 
