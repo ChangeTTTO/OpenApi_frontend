@@ -3,12 +3,13 @@ import showInterface from '@/pages/interfaceList.vue'
 import login from '@/pages/login.vue'
 import interfaceInfo from '@/pages/interfaceInfo.vue'
 import index from '@/components/index.vue'
+import NewIndex from "@/components/NewIndex.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      component: index,
+      component: NewIndex,
       children: [
         {
           name:'接口列表',

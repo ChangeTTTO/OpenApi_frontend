@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-container> <!--包裹着整个浏览器的大边框-->
+    <el-container style="height: 100vh; overflow-y: auto;"> <!--包裹着整个浏览器的大边框-->
 
-      <el-aside style="width: 250px; min-height: 100vh ;">   <!--侧边栏-->
+      <el-aside style="width: 250px; min-height: 100vh ;position: sticky; top: 0; z-index: 999" ><!--侧边栏-->
         <div style="height: 50px ; background-color: #4F6AA3;margin: 0;
                    color: #D3DAE8;font-size: 20px;display: flex;align-items: center;justify-content: center;">
           <!--设置文本行高line-height:60px-->
@@ -27,7 +27,7 @@
 
       <el-container  > <!--侧边栏右边的大框架-->
 
-        <el-header class="head" style="background-color: #3B5998;height:50px "> <!--右边大框架的头部-->
+        <el-header class="head" style="background-color: #3B5998; height: 50px; position: sticky; top: 0; z-index: 999"><!--右边大框架的头部-->
 
 <!--          <el-dropdown>
 

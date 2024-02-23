@@ -26,6 +26,8 @@
 <script lang="ts" setup>
  import {ref} from "vue";
 import request from "@/Axios";
+ import {useRouter} from "vue-router";
+ const router = useRouter()
  let user=ref({
    email:'',
     password:''
@@ -41,12 +43,16 @@ import request from "@/Axios";
        }
      });
 
-     // 处理响应数据
+     // 登陆成功后的逻辑
       if (response.code===1){
-          alert("登陆成功")
+        await router.push('/');
+      }else {
+        alert("请核实邮箱或密码")
       }
-      //存入登录用户的邮箱
      localStorage.setItem('loginUser',response.data.email)
+     localStorage.setItem('loginUserId',response.data.id)
+     localStorage.setItem('OpenApi-Public-Key',response.data.publicKey)
+     localStorage.setItem('OpenApi-Signature',response.data.sign)
    } catch (error) {
      // 处理请求错误
      console.error(error);
@@ -79,6 +85,7 @@ input::placeholder {
 }
 /* 使用 text-indent 来调整光标位置 */
 input {
+  padding: 0;
   text-indent: 10px; /* 根据需要调整缩进的距离 */
 }
 </style>
