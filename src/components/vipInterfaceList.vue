@@ -17,7 +17,7 @@
 </template>
 
 
-<script  lang="ts" setup>
+<script  lang="js" setup>
 import router from "@/router";
 
 let response=ref([])

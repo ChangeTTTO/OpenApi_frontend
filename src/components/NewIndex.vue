@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="js">
 import {RouterView,RouterLink} from 'vue-router'
 import {onMounted} from 'vue'
 import {ref} from "vue";
@@ -13,7 +13,7 @@ onMounted(()=>{
   user=localStorage.getItem('loginUser')
 })
 const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
+const handleSelect = (key, keyPath) => {
   console.log(key, keyPath)
 }
 async function logout() {

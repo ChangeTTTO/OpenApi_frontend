@@ -72,7 +72,7 @@
   </div>
 
 </template>
-<script setup lang="ts">
+<script setup lang="js">
 import {RouterView,RouterLink} from 'vue-router'
 import {onMounted} from 'vue'
 import {ref} from "vue";

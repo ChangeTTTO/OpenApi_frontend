@@ -4,7 +4,7 @@
 
 </template>
 
-<script lang="ts" setup>
+<script lang="js" setup>
 import Index from "@/components/index.txt";
 
 </script>

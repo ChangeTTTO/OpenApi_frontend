@@ -23,7 +23,7 @@
 
 </template>
 
-<script lang="ts" setup>
+<script lang="js" setup>
  import {ref} from "vue";
 import request from "@/Axios";
  import {useRouter} from "vue-router";

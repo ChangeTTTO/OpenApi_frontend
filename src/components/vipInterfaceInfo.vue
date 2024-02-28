@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="js">
 import 'highlight.js/styles/github.css'
 import {onMounted, ref} from "vue";
 import request from "@/Axios";
@@ -11,7 +11,7 @@ import hljsVuePlugin from "@highlightjs/vue-plugin";
 import {Bottom, DocumentCopy, Search} from "@element-plus/icons-vue";
 let response2=ref('')
 const code = ref('')
-let interfaceDetail :any= ref([])
+let interfaceDetail = ref([])
 onMounted(async () => {
   try {
     const result = await request.get(`/interfaceInfo/${route.params.id}`)

@@ -19,7 +19,7 @@
 </template>
 
 
-<script lang="ts" setup>
+<script lang="js" setup>
 import {Search} from "@element-plus/icons-vue";
 
 let response=ref([])

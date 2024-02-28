@@ -25,5 +25,5 @@
   box-shadow: none
 }
 </style>
-<script setup lang="ts">
+<script setup lang="js">
 </script>

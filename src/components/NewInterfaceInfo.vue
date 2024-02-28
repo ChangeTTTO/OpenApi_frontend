@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="js">
 import 'highlight.js/styles/github.css'
 import {onMounted, ref} from "vue";
 import request from "@/Axios";
@@ -44,7 +44,7 @@ async function getCount(){
   }
 }
 //调用方法;
-async function invoke(textarea: string) {
+async function invoke() {
 
   console.log(localStorage.getItem('OpenApi-Public-Key'))
   console.log(localStorage.getItem('OpenApi-Signature'))
