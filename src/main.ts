@@ -8,7 +8,17 @@ import App from './App.vue'
 import router from './router'
 import hljs from 'highlight.js';
 import 'highlight.js/styles/default.css'; // 导入样式
-
+// 全局的路由守卫
+router.beforeEach((to, from, next) => {
+    // 获取用户登录信息
+    let userEmail = localStorage.getItem("loginUser");
+    // 如果用户未登录且目标路由不是登录页面，则重定向到登录页面
+    if (!userEmail && to.path !== '/login') {
+        next('/login');
+    } else {
+        next(); // 放行
+    }
+});
 const app = createApp(App)
 //高亮插件
 app.directive('highlight', {

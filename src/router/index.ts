@@ -1,9 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import showInterface from '@/pages/interfaceList.vue'
-import login from '@/pages/login.vue'
-import interfaceInfo from '@/pages/interfaceInfo.vue'
-import index from '@/components/index.vue'
+import vip from '@/components/vip.vue'
+import login from '@/components/login.vue'
+import vipInterfaceList from '@/components/vipInterfaceList.vue'
 import NewIndex from "@/components/NewIndex.vue";
+import NewInterfaceInfo from "@/components/NewInterfaceInfo.vue";
+import interfaceList from "@/components/interfaceList.vue";
+import Welcome from "@/components/Welcome.vue";
+import vipInterfaceInfo from "@/components/vipInterfaceInfo.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -14,13 +17,34 @@ const router = createRouter({
         {
           name:'接口列表',
           path:'/interfaceList',
-          component:showInterface
+          component:interfaceList
         },
         {
           name:'接口信息界面',
           path:'/interfaceInfo/:id',
-          component:interfaceInfo,
+          component:NewInterfaceInfo,
           props:true
+        },
+        {
+          name:'vip接口信息界面',
+          path:'/vipInterfaceInfo/:id',
+          component:vipInterfaceInfo,
+          props:true
+        },
+        {
+          name:"欢迎页",
+          path:'/welcome',
+          component:Welcome
+        },
+        {
+          name:"vip充值界面",
+          path:'/vip',
+          component:vip
+        },
+        {
+          name:"vip接口列表",
+          path:'/vipInterfaceList',
+          component:vipInterfaceList
         },
       ]
     },

@@ -45,7 +45,7 @@ import request from "@/Axios";
 
      // 登陆成功后的逻辑
       if (response.code===1){
-        await router.push('/');
+        await router.push('/welcome');
       }else {
         alert("请核实邮箱或密码")
       }

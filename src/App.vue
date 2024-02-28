@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import Index from "@/components/index.vue";
+import Index from "@/components/index.txt";
 
 </script>
 
@@ -13,4 +13,5 @@ import Index from "@/components/index.vue";
 body{
   margin: 0 !important;
 }
+
 </style>
