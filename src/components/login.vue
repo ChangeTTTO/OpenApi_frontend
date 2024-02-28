@@ -5,11 +5,11 @@
         <div style="text-align: center;margin-bottom: 50px;font-size: 30px">OpenApi</div>
 
         <el-form-item  prop="pass">
-          <el-input  type="text" v-model="user.email" placeholder="邮箱" class="login-item input"/>
+          <el-input  type="text" v-model="user.email" placeholder="admin" class="login-item input"/>
         </el-form-item>
 
         <el-form-item  prop="checkPass" >
-          <el-input type="password" v-model="user.password" class="login-item input"  placeholder="密码"/>
+          <el-input type="password" v-model="user.password" class="login-item input"  placeholder="admin"/>
         </el-form-item>
 
         <el-form-item >
@@ -42,9 +42,9 @@ import request from "@/Axios";
          'Content-Type': 'application/json'
        }
      });
-
+      console.log(response.data.id)
      // 登陆成功后的逻辑
-      if (response.code===1){
+      if (response.data.id){
         await router.push('/welcome');
       }else {
         alert("请核实邮箱或密码")

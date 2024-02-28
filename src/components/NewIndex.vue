@@ -3,6 +3,8 @@ import {RouterView,RouterLink} from 'vue-router'
 import {onMounted} from 'vue'
 import {ref} from "vue";
 import {ArrowDown, UserFilled} from "@element-plus/icons-vue";
+import request from "@/Axios";
+import router from "@/router";
 
 const isDivActive = ref(false);
 const isDivHuiYuan = ref(false);
@@ -13,6 +15,25 @@ onMounted(()=>{
 const activeIndex = ref('1')
 const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
+}
+async function logout() {
+  try {
+    // 发送 POST 请求
+    const result = await request.get(`user/logout`);
+    if (result.code===1){
+      localStorage.removeItem('loginUser');
+      localStorage.removeItem('loginUserId');
+      localStorage.removeItem('OpenApi-Public-Key');
+      localStorage.removeItem('OpenApi-Signature');
+      await router.push('/login');
+    }else {
+      alert("发生了异常，请重试")
+    }
+    // 处理结果
+  } catch (error) {
+    // 处理错误
+  }
+
 }
 </script>
 
@@ -61,9 +82,11 @@ const handleSelect = (key: string, keyPath: string[]) => {
             </el-button>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item><el-icon style="font-size: 18px"><User /></el-icon>个人中心</el-dropdown-item>
+<!--                <el-dropdown-item><el-icon style="font-size: 18px"><User /></el-icon>个人中心</el-dropdown-item>-->
+                <div  @click="logout">
+                  <el-dropdown-item><el-icon style="font-size: 18px"><Remove /></el-icon>登出</el-dropdown-item>
+                </div>
 
-                <el-dropdown-item><el-icon style="font-size: 18px"><Remove /></el-icon>登出</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>

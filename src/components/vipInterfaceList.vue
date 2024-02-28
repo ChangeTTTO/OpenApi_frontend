@@ -28,7 +28,7 @@ import {onMounted, ref} from 'vue';
 onMounted(async () => {
 
   try {
-    const result = await request.get('http://localhost:1111/interfaceInfo/getVipInterface');
+    const result = await request.get('/interfaceInfo/getVipInterface');
     const isVip=await request.get(`/user/findUserByEmail?email=${userEmail}`);
     response.value = result.data;
     console.log(isVip.userRole)
