@@ -44,7 +44,7 @@ async function logout() {
       <el-header class="header" >     <!--头部-->
         <div class="logo">
             <img src="@/assets/logo.png" alt="Logo" width="30px" style="display: inline">
-           <strong> OpenApi接口开放平台  </strong>
+           <strong> OpenApi  </strong>
         </div>
           <div class="menu">
             <el-menu

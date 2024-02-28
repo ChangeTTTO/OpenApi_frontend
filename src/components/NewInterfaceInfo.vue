@@ -66,7 +66,7 @@ async function invoke() {
 
   try {
     // 发送 POST 请求
-    const response = await request.post("http://47.108.254.114:9999/interfaceInfo/invoke", requestBody, { headers });
+    const response = await request.post("http://8.134.204.252:9999/interfaceInfo/invoke", requestBody, { headers });
     response2.value = JSON.stringify(response,null,2);
     console.log(response)
     // 处理结果
