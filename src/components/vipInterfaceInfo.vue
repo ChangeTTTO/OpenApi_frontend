@@ -1,7 +1,15 @@
 <script setup lang="js">
+import router from "@/router/index.ts";
+request.get(`interfaceInfo/test`)
+    .then(status => {
+      console.log(status.code);
+    })
+    .catch(error => {
+      router.push('/login');
+    });
 import 'highlight.js/styles/github.css'
 import {onMounted, ref} from "vue";
-import request from "@/Axios";
+import request from "@/Axios.ts";
 import {useRoute} from 'vue-router';
 let route = useRoute();
 let interfaceInfo=ref('')
@@ -9,9 +17,15 @@ import 'highlight.js/styles/stackoverflow-light.css'
 import 'highlight.js/lib/common';
 import hljsVuePlugin from "@highlightjs/vue-plugin";
 import {Bottom, DocumentCopy, Search} from "@element-plus/icons-vue";
+import {ElMessage} from "element-plus";
 let response2=ref('')
 const code = ref('')
 let interfaceDetail = ref([])
+let user = ref('')
+user = localStorage.getItem('loginUser')
+if(user==null){
+  router.push('/login');
+}
 onMounted(async () => {
   try {
     const result = await request.get(`/interfaceInfo/${route.params.id}`)
@@ -58,7 +72,7 @@ const copyInterfaceUrl = () => {
   navigator.clipboard.writeText(url)
       .then(() => {
         console.log('接口地址已复制到剪贴板');
-        alert("已复制到剪贴板")
+        ElMessage.success("已复制到剪贴板")
       })
       .catch((error) => {
         console.error('复制接口地址失败', error);

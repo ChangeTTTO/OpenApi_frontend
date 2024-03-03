@@ -24,12 +24,13 @@
 </template>
 
 <script lang="js" setup>
- import {ref} from "vue";
+import {nextTick, ref} from "vue";
 import request from "@/Axios";
  import {useRouter} from "vue-router";
+ import {ElMessage} from "element-plus";
  const router = useRouter()
  let user=ref({
-   email:'',
+    email:'',
     password:''
  })
  async function login() {
@@ -38,24 +39,23 @@ import request from "@/Axios";
      const response = await request.post('/user/login', {
        email: user.value.email,
        password: user.value.password,
-       headers: {
-         'Content-Type': 'application/json'
-       }
      });
-      console.log(response.data.id)
+    console.log(response.data.id)
      // 登陆成功后的逻辑
       if (response.data.id){
+        localStorage.setItem('loginUser',response.data.email)
+        localStorage.setItem('loginUserId',response.data.id)
+        localStorage.setItem('OpenApi-Public-Key',response.data.publicKey)
+        localStorage.setItem('OpenApi-Signature',response.data.sign)
         await router.push('/welcome');
-      }else {
-        alert("请核实邮箱或密码")
+        ElMessage.success("登录成功")
       }
-     localStorage.setItem('loginUser',response.data.email)
-     localStorage.setItem('loginUserId',response.data.id)
-     localStorage.setItem('OpenApi-Public-Key',response.data.publicKey)
-     localStorage.setItem('OpenApi-Signature',response.data.sign)
+
+
    } catch (error) {
      // 处理请求错误
-     console.error(error);
+     ElMessage.error('请核实邮箱或密码')
+
    }
  }
 

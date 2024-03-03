@@ -1,8 +1,12 @@
 import axios from 'axios'
 const request :any = axios.create({
-     baseURL: 'http://8.134.204.252:1111',
     //baseURL: 'http://localhost:1111',
-    timeout: 5000
+    withCredentials:true,
+    baseURL: 'http://localhost:1111',
+    timeout: 10000,
+    headers: {
+        'OpenApi-Public-Key': localStorage.getItem('OpenApi-Public-Key')
+    }
 })
 
 

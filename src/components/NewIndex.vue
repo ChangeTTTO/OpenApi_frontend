@@ -1,19 +1,28 @@
 <script setup lang="js">
 import {RouterView,RouterLink} from 'vue-router'
-import {onMounted} from 'vue'
 import {ref} from "vue";
 import {ArrowDown, UserFilled} from "@element-plus/icons-vue";
 import request from "@/Axios";
 import router from "@/router";
+import Welcome from "@/components/Welcome.vue";
 
 const isDivActive = ref(false);
 const isDivHuiYuan = ref(false);
 let user = ref('')
-onMounted(()=>{
-  user=localStorage.getItem('loginUser')
-})
+user = localStorage.getItem('loginUser')
+if(user==null){
+  router.push('/login');
+}
+request.get(`interfaceInfo/test`)
+    .then(status => {
+      console.log(status.code);
+    })
+    .catch(error => {
+      router.push('/login');
+    });
 const activeIndex = ref('1')
 const handleSelect = (key, keyPath) => {
+
   console.log(key, keyPath)
 }
 async function logout() {
@@ -51,6 +60,7 @@ async function logout() {
                 mode="horizontal"
                 @select="handleSelect"
                 :router="true"
+                default-active="/welcome"
             >
               <el-menu-item index="/welcome">
                 欢迎
@@ -97,7 +107,6 @@ async function logout() {
         <div >
           <router-view/>
         </div>
-
       </el-main>
     </el-container>
   </div>
@@ -111,7 +120,7 @@ async function logout() {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
+  z-index: 150;
 }
 el-main{
   padding: 0;

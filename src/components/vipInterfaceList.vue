@@ -19,7 +19,18 @@
 
 <script  lang="js" setup>
 import router from "@/router";
-
+let user = ref('')
+user = localStorage.getItem('loginUser')
+if(user==null){
+  router.push('/login');
+}
+request.get(`interfaceInfo/test`)
+    .then(status => {
+      console.log(status.code);
+    })
+    .catch(error => {
+      router.push('/login');
+    });
 let response=ref([])
 let userEmail=localStorage.getItem("loginUser")
 import request from "@/Axios.ts";

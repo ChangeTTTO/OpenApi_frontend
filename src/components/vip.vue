@@ -6,7 +6,7 @@
 
     <div class="card-container">
       <div  class="InnerCard" @click="getVip">
-        <img src="../assets/会员购买.png" alt="Image" style="width: 100%;" >
+        <img src="https://rxbby.oss-cn-guangzhou.aliyuncs.com/OpenApi/%E4%BC%9A%E5%91%98%E8%B4%AD%E4%B9%B0.png" alt="Image" style="width: 100%;" >
         <div>
           <h3 style="color: red">{{ price }}</h3>
           <p> 有效期: <b>{{validity}}</b></p>
@@ -22,9 +22,22 @@
 
 <script setup lang="js">
 import { useRouter } from 'vue-router';
-import request from "@/Axios";
-
-const router = useRouter();
+import request from "@/Axios.ts";
+import router from "@/router/index.ts";
+import {ElMessage} from "element-plus";
+import {ref} from "vue";
+let user = ref('')
+user = localStorage.getItem('loginUser')
+if(user==null){
+  router.push('/login');
+}
+request.get(`interfaceInfo/test`)
+    .then(status => {
+      console.log(status.code);
+    })
+    .catch(error => {
+      router.push('/login');
+    });
 const price = '¥0.01'; // 价格
 const validity = '无限期'; // 会员有效期
 
@@ -35,7 +48,8 @@ async function getVip() {
       email:localStorage.getItem("loginUser")
     });
     if (vipResponse.code === 1) {
-      alert("获取会员成功")
+      ElMessage.success("获取会员成功")
+      await router.push('/vipInterfaceList')
     }else {
       alert("发生异常")
     }

@@ -1,18 +1,33 @@
 <script setup lang="js">
+import router from "@/router/index.ts";
+
+request.get(`interfaceInfo/test`)
+    .then(status => {
+      console.log(status.code);
+    })
+    .catch(error => {
+      router.push('/login');
+    });
 import 'highlight.js/styles/github.css'
+//这个竟然是有用的
+import hljsVuePlugin from "@highlightjs/vue-plugin";
 import {onMounted, ref} from "vue";
-import request from "@/Axios";
+import request from "@/Axios.ts";
 import {useRoute} from 'vue-router';
 let route = useRoute();
 let response=ref('')
 import 'highlight.js/styles/stackoverflow-light.css'
 import 'highlight.js/lib/common';
-import hljsVuePlugin from "@highlightjs/vue-plugin";
-import {Bottom, Search} from "@element-plus/icons-vue";
+import {ElMessage} from "element-plus";
 let response2=ref('')
 const code = ref(`let hello = 'Hello World!';
 console.log(hello);`)
 const textarea = ref('')
+let user = ref('')
+user = localStorage.getItem('loginUser')
+if(user==null){
+  router.push('/login');
+}
 onMounted(async () => {
   console.log(route)
   try {
@@ -28,16 +43,16 @@ onMounted(async () => {
 async function getCount(){
   try {
     // 发送 POST 请求
-    const result = await request.post("/userInterfaceInfo/getCount",{
+    const result = await request.post("http://localhost:1111/interfaceInfo/getCount",{
       interfaceId: response.value.id,
       userId: localStorage.getItem("loginUserId")
     })
     console.log(result)
     // 处理结果
-    if (result.code==0){
-      alert("不可重复获取")
+    if (result.code===0){
+      ElMessage.warning("不可重复获取")
     }else {
-      alert("获取成功")
+      ElMessage.success("获取成功")
     }
   } catch (error) {
     // 处理错误
@@ -59,19 +74,18 @@ async function invoke() {
 
 // 设置请求标头
   const headers = {
-    'Content-Type': 'application/json',
     'OpenApi-Public-Key': localStorage.getItem('OpenApi-Public-Key'),
-    'OpenApi-Signature': localStorage.getItem('OpenApi-Signature')
+    'OpenApi-Signature': localStorage.getItem('OpenApi-Signature'),
   };
 
   try {
     // 发送 POST 请求
-    const response = await request.post("http://8.134.204.252:9999/interfaceInfo/invoke", requestBody, { headers });
+    const response = await request.post("http://localhost:1111/interfaceInfo/invoke", requestBody, { headers });
     response2.value = JSON.stringify(response,null,2);
-    console.log(response)
+    console.log(response2.value)
     // 处理结果
   } catch (error) {
-    // 处理错误
+    ElMessage.warning("你当前暂无可调用次数");
   }
 
 }
@@ -90,12 +104,6 @@ async function invoke() {
       </span>
       {{response.description}}
       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-      <span class="interfaceName">
-        接口状态:
-      </span>
-
-      <span v-if="response.status===1" >启用</span>
-      <span v-else>关闭</span>
     </el-card>
     <el-card class="card">
          <span class="highlighted-line button" @click="getCount">
