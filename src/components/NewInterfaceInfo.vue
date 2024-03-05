@@ -43,7 +43,7 @@ onMounted(async () => {
 async function getCount(){
   try {
     // 发送 POST 请求
-    const result = await request.post("http://localhost:1111/interfaceInfo/getCount",{
+    const result = await request.post("http://8.134.204.252:1111/interfaceInfo/getCount",{
       interfaceId: response.value.id,
       userId: localStorage.getItem("loginUserId")
     })
@@ -80,7 +80,7 @@ async function invoke() {
 
   try {
     // 发送 POST 请求
-    const response = await request.post("http://localhost:1111/interfaceInfo/invoke", requestBody, { headers });
+    const response = await request.post("http://8.134.204.252:1111/interfaceInfo/invoke", requestBody, { headers });
     response2.value = JSON.stringify(response,null,2);
     console.log(response2.value)
     // 处理结果

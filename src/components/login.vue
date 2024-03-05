@@ -1,22 +1,24 @@
 <template>
+
   <div class="body">
     <div class="login">
       <el-form>
         <div style="text-align: center;margin-bottom: 50px;font-size: 30px">OpenApi</div>
 
         <el-form-item  prop="pass">
-          <el-input  type="text" v-model="user.email" placeholder="admin" class="login-item input"/>
+          <el-input  type="text" v-model="user.email" placeholder="账号" class="login-item input"/>
         </el-form-item>
 
         <el-form-item  prop="checkPass" >
-          <el-input type="password" v-model="user.password" class="login-item input"  placeholder="admin"/>
+          <el-input type="password" v-model="user.password" class="login-item input"  placeholder="密码"/>
         </el-form-item>
 
         <el-form-item >
           <el-button style="background-color: #0665D0;color: white" @click="login" class="login-item">登录</el-button>
         </el-form-item>
-
+        <router-link to="/register"><el-button style="background-color: #0665D0;color: white" class="login-item">注册</el-button></router-link>
       </el-form>
+
     </div>
   </div>
 

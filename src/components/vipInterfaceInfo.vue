@@ -62,7 +62,7 @@ async function invoke() {
     code.value = JSON.stringify(vipResponse,null,2);
     // 处理结果
   } catch (error) {
-    // 处理错误
+    ElMessage.error("发生异常，请重试 ")
   }
 
 }

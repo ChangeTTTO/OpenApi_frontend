@@ -7,12 +7,14 @@ import NewInterfaceInfo from "@/components/NewInterfaceInfo.vue";
 import interfaceList from "@/components/interfaceList.vue";
 import Welcome from "@/components/Welcome.vue";
 import vipInterfaceInfo from "@/components/vipInterfaceInfo.vue";
+import register from "@/components/register.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       component: NewIndex,
+      redirect: '/welcome',
       children: [
         {
           name:'接口列表',
@@ -53,6 +55,10 @@ const router = createRouter({
       path: '/login',
       component: login
     },
+    {
+      path: '/register',
+      component: register
+    }
   ]
 })
 
